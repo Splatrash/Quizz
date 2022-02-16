@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Quizz</string>
+    <string name="ted_emailHint">Utilisateur</string>
+    <string name="ted_passwordHint">Mot de passe</string>
+    <string name="btn_connectText">SE CONNECTER</string>
+    <string name="loginError">"Le nom d'utilisateur ou le mot de passe est incorrect."</string>
+
+
+    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="btn_previous">Précédent</string>
+    <string name="btn_next">Suivant</string>
+    <string name="btn_true">Vrai</string>
+    <string name="btn_false">Faux</string>
+    <string name="btn_share">Partager</string>
+    <string name="btn_configure">Configure</string>
+
+    <string name="question1">"Le ciel est bleu."</string>
+    <string name="answer1">True</string>
+
+    <string name="question2">"L'Argentine est en europe."</string>
+    <string name="answer2">False</string>
+
+    <string name="question3">"12 x 4 = 46"</string>
+    <string name="answer3">False</string>
+
+    <string name="question4">"Le Canada contient 13 prrovinces."</string>
+    <string name="answer4">False</string>
+
+    <string name="question5">"Le Canada a été fondé en 1867."</string>
+    <string name="answer5">True</string>
+
+</resources>

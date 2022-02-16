@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quizz</string>
+    <string name="ted_emailHint">User</string>
+    <string name="ted_passwordHint">Password</string>
+    <string name="btn_connectText">LOGIN</string>
+    <string name="loginError">"The username or the password is incorrect"</string>
+
+    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_true">True</string>
+    <string name="btn_false">False</string>
+    <string name="btn_share">Share</string>
+    <string name="btn_configure">Configure</string>
+
+    <string name="question1">"The sky is blue."</string>
+    <string name="answer1">True</string>
+
+    <string name="question2">"Argentina is in Europe."</string>
+    <string name="answer2">False</string>
+
+    <string name="question3">"12 x 4 = 46"</string>
+    <string name="answer3">False</string>
+
+    <string name="question4">"Canada contains 13 provinces."</string>
+    <string name="answer4">False</string>
+
+    <string name="question5">"Canada was founded in 1867."</string>
+    <string name="answer5">True</string>
+
+</resources>
