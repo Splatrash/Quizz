@@ -14,4 +14,7 @@
     <string name="btn_share">Share</string>
     <string name="btn_configure">Configure</string>
 
+    <string name="ted_changeUsernameHint">Change your username</string>
+    <string name="btn_changerNom">Validate</string>
+    <string name="toast_noUsername">Please enter a username</string>
 </resources>
