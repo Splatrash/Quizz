@@ -14,19 +14,4 @@
     <string name="btn_share">Share</string>
     <string name="btn_configure">Configure</string>
 
-    <string name="question1">"The sky is blue."</string>
-    <string name="answer1">True</string>
-
-    <string name="question2">"Argentina is in Europe."</string>
-    <string name="answer2">False</string>
-
-    <string name="question3">"12 x 4 = 46"</string>
-    <string name="answer3">False</string>
-
-    <string name="question4">"Canada contains 13 provinces."</string>
-    <string name="answer4">False</string>
-
-    <string name="question5">"Canada was founded in 1867."</string>
-    <string name="answer5">True</string>
-
 </resources>

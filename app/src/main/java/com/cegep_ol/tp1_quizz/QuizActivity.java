@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvUsername;
     private TextView tvQuestion;
@@ -24,10 +29,12 @@ public class QuizActivity extends AppCompatActivity {
     private Button btnShare;
     private Button btnConfigure;
 
-    private String[] questions;
-    private Boolean[] answers;
+    private ArrayList<String> affirmations;
+    private ArrayList<Boolean> answers;
 
+    private Integer currentQuestion;
     private Boolean correctAnswer;
+    private Integer score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,23 @@ public class QuizActivity extends AppCompatActivity {
         loadQuestions();
         loadAnswers();
 
-        prepareQuestion(0);
+        btnPrevious = findViewById(R.id.btn_previous);
+        btnNext = findViewById(R.id.btn_next);
+        btnTrue = findViewById(R.id.btn_true);
+        btnFalse = findViewById(R.id.btn_false);
+
+        btnPrevious.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
+        btnTrue.setOnClickListener(this);
+        btnFalse.setOnClickListener(this);
+
+        tvQuestion = findViewById(R.id.tv_question);
+        tvScore = findViewById(R.id.tv_score);
+
+        currentQuestion = 0;
+        score = 0;
+
+        showNewQuestion();
     }
 
     public void onClick(View v) {
@@ -45,39 +68,64 @@ public class QuizActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.btn_previous:
-                return;
+                if (currentQuestion > 0)
+                    currentQuestion--;
+                else
+                    currentQuestion = affirmations.size() - 1;
+
+                showNewQuestion();
+                break;
             case R.id.btn_next:
-                return;
+                if (currentQuestion < affirmations.size() - 1)
+                    currentQuestion++;
+                else
+                    currentQuestion = 0;
+
+                showNewQuestion();
+                break;
             case R.id.btn_true:
-                return;
+                checkAnswer(true);
+                break;
             case R.id.btn_false:
-                return;
+                checkAnswer(false);
+                break;
             case R.id.btn_share:
-                return;
+                break;
             case R.id.btn_configure:
-                return;
+                break;
         }
     }
 
     private void loadQuestions(){
-        questions = new String[]{getString(R.string.question1),
-                getString(R.string.question2),
-                getString(R.string.question3),
-                getString(R.string.question4),
-                getString(R.string.question5)};
+        affirmations = new ArrayList<String>();
+        affirmations.add( "Le ciel est bleu.");
+        affirmations.add( "L'Argentine est en europe.");
+        affirmations.add( "12 x 4 = 46");
+        affirmations.add( "Le Canada contient 13 prrovinces.");
+        affirmations.add( "Le Canada a été fondé en 1867.");
     }
 
     private void loadAnswers(){
-        answers = new Boolean[]{Boolean.parseBoolean(getString(R.string.answer1)),
-                Boolean.parseBoolean(getString(R.string.answer2)),
-                Boolean.parseBoolean(getString(R.string.answer3)),
-                Boolean.parseBoolean(getString(R.string.answer4)),
-                Boolean.parseBoolean(getString(R.string.answer5))};
+        answers = new ArrayList<Boolean>();
+        answers.add(true);
+        answers.add(false);
+        answers.add(false);
+        answers.add(false);
+        answers.add(true);
     }
 
-    private void prepareQuestion(int questionNumber){
-        tvQuestion = findViewById(R.id.tv_question);
-        tvQuestion.setText(questions[questionNumber]);
-        correctAnswer = answers[questionNumber];
+    private void showNewQuestion(){
+        tvQuestion.setText(affirmations.get(currentQuestion));
+        correctAnswer = answers.get(currentQuestion);
+    }
+
+    private void checkAnswer(Boolean answer){
+        if (answer == correctAnswer){
+            Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            score++;
+            tvScore.setText(String.valueOf(score));
+            return;
+        }
+        Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT).show();
     }
 }
