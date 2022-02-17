@@ -1,7 +1,6 @@
 package com.cegep_ol.tp1_quizz;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences prefs;
 
     private TextView tvUsername;
-    private TextView tvQuestion;
+    private TextView tvAffirmation;
     private TextView tvScore;
     private TextView tvHighscore;
 
@@ -31,16 +30,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> affirmations;
     private ArrayList<Boolean> answers;
 
-    private Integer currentQuestion;
-    private Boolean correctAnswer;
+    private Integer currentAffirmation;
     private Integer score;
+
+    private Boolean correctAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        loadQuestions();
+        loadAffirmations();
         loadAnswers();
 
         findViewsById();
@@ -48,16 +48,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         initiatePrefs();
 
-        currentQuestion = 0;
+        //Initialise les valeurs initiales du quiz.
+        currentAffirmation = 0;
         score = 0;
 
-        showNewQuestion();
+        showNewAffirmation();
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_previous:
-                previousAffimation();
+                previousAffirmation();
                 break;
             case R.id.btn_next:
                 nextAffirmation();
@@ -79,47 +80,33 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void previousAffimation(){
-        if (currentQuestion > 0)
-            currentQuestion--;
+    //Charge l'affirmation précédente, si c'est la première affirmation, charge la dernière affirmation.
+    private void previousAffirmation(){
+        if (currentAffirmation > 0)
+            currentAffirmation--;
         else
-            currentQuestion = affirmations.size() - 1;
+            currentAffirmation = affirmations.size() - 1;
 
-        showNewQuestion();
+        showNewAffirmation();
     }
 
+    //Charge l'affirmation suivante, si c'est la dernière affirmation, charge la première affirmation.
     private void nextAffirmation(){
-        if (currentQuestion < affirmations.size() - 1)
-            currentQuestion++;
+        if (currentAffirmation < affirmations.size() - 1)
+            currentAffirmation++;
         else
-            currentQuestion = 0;
+            currentAffirmation = 0;
 
-        showNewQuestion();
+        showNewAffirmation();
     }
 
-    private void loadQuestions(){
-        affirmations = new ArrayList<String>();
-        affirmations.add( "Le ciel est bleu.");
-        affirmations.add( "L'Argentine est en europe.");
-        affirmations.add( "12 x 4 = 46");
-        affirmations.add( "Le Canada contient 13 prrovinces.");
-        affirmations.add( "Le Canada a été fondé en 1867.");
+    //Charge l'affirmation liée avec la question courante.
+    private void showNewAffirmation(){
+        tvAffirmation.setText(affirmations.get(currentAffirmation));
+        correctAnswer = answers.get(currentAffirmation);
     }
 
-    private void loadAnswers(){
-        answers = new ArrayList<Boolean>();
-        answers.add(true);
-        answers.add(false);
-        answers.add(false);
-        answers.add(false);
-        answers.add(true);
-    }
-
-    private void showNewQuestion(){
-        tvQuestion.setText(affirmations.get(currentQuestion));
-        correctAnswer = answers.get(currentQuestion);
-    }
-
+    //Vérifie si la réponse est bonne et mes la score à jour.
     private void checkAnswer(Boolean answer){
         if (answer == correctAnswer){
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
@@ -135,6 +122,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Met à jour le record si le score actuel est plus grand.
     private void updateHighScore(){
         Integer highscore = prefs.getInt("highscore", 0);
         if (score > highscore){
@@ -145,8 +133,56 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void findViewsById(){
+    //Ouvre le menu pour partager son score.
+    private void shareScore(){
+        Intent sendScore = new Intent();
+        sendScore.setAction(Intent.ACTION_SEND);
+        sendScore.putExtra(Intent.EXTRA_TEXT, score);
+        sendScore.setType("text/plain");
+        startActivity(sendScore);
+    }
 
+    //Ouvre l'activité de configuration.
+    private void openConfigurations(){
+        Intent intent;
+
+        intent = new Intent(QuizActivity.this, ConfigurationActivity.class);
+        startActivity(intent);
+        tvUsername.setText(prefs.getString("username", "cegep"));
+    }
+
+    //Les affirmations sont stocké ici.
+    private void loadAffirmations(){
+        affirmations = new ArrayList<String>();
+        affirmations.add( "Le ciel est bleu.");
+        affirmations.add( "L'Argentine est en europe.");
+        affirmations.add( "12 x 4 = 46");
+        affirmations.add( "Le Canada contient 13 prrovinces.");
+        affirmations.add( "Le Canada a été fondé en 1867.");
+        affirmations.add( "Est-ce que la terre est plate.");
+        affirmations.add( "Mélanger le rouge et le bleu donne orange.");
+        affirmations.add( "Un googol est un 1 suivi de 100 zéros.");
+        affirmations.add( "Le corps humain adulte contient 208 os.");
+        affirmations.add( "Je mérite 100% sur le travail.");
+
+    }
+
+    //Les réponses des affirmations sont stocké ici, l'ordre qu'ils sont ajouté doit être le même que les affirmations.
+    private void loadAnswers(){
+        answers = new ArrayList<Boolean>();
+        answers.add(true);
+        answers.add(false);
+        answers.add(false);
+        answers.add(false);
+        answers.add(true);
+        answers.add(false);
+        answers.add(false);
+        answers.add(true);
+        answers.add(false);
+        answers.add(false);
+    }
+
+    private void findViewsById(){
         btnPrevious = findViewById(R.id.btn_previous);
         btnNext = findViewById(R.id.btn_next);
         btnTrue = findViewById(R.id.btn_true);
@@ -155,10 +191,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         btnConfigure = findViewById(R.id.btn_configure);
 
         tvUsername = findViewById(R.id.tv_username);
-        tvQuestion = findViewById(R.id.tv_question);
+        tvAffirmation = findViewById(R.id.tv_affirmation);
         tvScore = findViewById(R.id.tv_score);
         tvHighscore = findViewById(R.id.tv_highscore);
     }
+
     private void setOnClickListeners(){
         btnPrevious.setOnClickListener(this);
         btnNext.setOnClickListener(this);
@@ -181,22 +218,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         tvHighscore.setText(getString(R.string.tv_highscore) + ": " + highscore);
         tvUsername.setText(getString(R.string.tv_username) + ": " + username);
 
-    }
-
-    private void shareScore(){
-        Intent sendScore = new Intent();
-        sendScore.setAction(Intent.ACTION_SEND);
-        sendScore.putExtra(Intent.EXTRA_TEXT, score);
-        sendScore.setType("text/plain");
-        startActivity(sendScore);
-    }
-
-    private void openConfigurations(){
-        Intent intent;
-
-        intent = new Intent(QuizActivity.this, ConfigurationActivity.class);
-        startActivity(intent);
-        tvUsername.setText(prefs.getString("username", "cegep"));
     }
 
 }

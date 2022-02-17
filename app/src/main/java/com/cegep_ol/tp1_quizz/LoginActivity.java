@@ -23,35 +23,37 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewsById();
 
+        //Appelé lorque le bouton d'authentification est appuyé.
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-
-                Intent intent;
-
-                if(!verifyLogin(username, password)){
-                    tvError.setText(R.string.loginError);
-                }
-                else {
-                    intent = new Intent(LoginActivity.this, QuizActivity.class);
-                    startActivity(intent);
-                }
+                verifyLogin();
             }
-
-
         });
     }
 
-    public static boolean verifyLogin(String userName, String password){
-        if (!"cegep".equals(userName)){
-            return false;
+    //Vérifie les informations de l'utilisateur et charge le quiz si ils sont valide.
+    private void verifyLogin(){
+        String username = etUsername.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (!"cegep".equals(username)){
+            tvError.setText(R.string.loginError);
+            return;
         }
         if (!"123".equals(password)){
-            return false;
+            tvError.setText(R.string.loginError);
+            return;
         }
-        return true;
+        loadQuizz();
+    }
+
+    //Charge l'activité du quiz.
+    public void loadQuizz(){
+        Intent intent;
+
+        intent = new Intent(LoginActivity.this, QuizActivity.class);
+        startActivity(intent);
     }
 
     public void findViewsById(){

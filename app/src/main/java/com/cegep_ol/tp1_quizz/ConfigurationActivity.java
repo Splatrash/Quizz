@@ -27,20 +27,27 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         findViewsById();
 
+        //Appelé lorsque le bouton valider est appuyé.
         btnValidate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                String newUsername = etNewUsername.getText().toString();
-
-                if (newUsername.trim().length() > 0)
-                    updateUsernameInPrefs(newUsername);
-                else
-                    Toast.makeText(ConfigurationActivity.this, R.string.toast_noUsername, Toast.LENGTH_SHORT).show();
+                validateNewUsername();
             }
         });
 
     }
+
+    //Valide le nouveau nom et le modifie si il est valide.
+    public void validateNewUsername(){
+        String newUsername = etNewUsername.getText().toString();
+
+        if (newUsername.trim().length() > 0)
+            updateUsernameInPrefs(newUsername);
+        else
+            Toast.makeText(ConfigurationActivity.this, R.string.toast_noUsername, Toast.LENGTH_SHORT).show();
+    }
+
+    //Met à jour le nom dans les préférences.
     public void updateUsernameInPrefs(String username){
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", username);
@@ -53,4 +60,5 @@ public class ConfigurationActivity extends AppCompatActivity {
         etNewUsername = findViewById(R.id.et_newUsername);
         btnValidate = findViewById(R.id.btn_validate);
     }
+
 }

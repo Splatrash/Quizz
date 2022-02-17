@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_question"
+        android:id="@+id/tv_affirmation"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
@@ -50,8 +50,8 @@
         android:text="@string/btn_true"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_false"
-        app:layout_constraintStart_toStartOf="@+id/tv_question"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintStart_toStartOf="@+id/tv_affirmation"
+        app:layout_constraintTop_toBottomOf="@+id/tv_affirmation"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -63,8 +63,8 @@
         android:backgroundTint="#A80202"
         android:text="@string/btn_false"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_question"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_affirmation"
+        app:layout_constraintTop_toBottomOf="@+id/tv_affirmation" />
 
     <Button
         android:id="@+id/btn_previous"
@@ -74,10 +74,10 @@
         android:text="@string/btn_previous"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_question"
-        app:layout_constraintEnd_toStartOf="@+id/tv_question"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_affirmation"
+        app:layout_constraintEnd_toStartOf="@+id/tv_affirmation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_question" />
+        app:layout_constraintTop_toTopOf="@+id/tv_affirmation" />
 
     <Button
         android:id="@+id/btn_next"
@@ -86,10 +86,10 @@
         android:backgroundTint="#817A7A"
         android:text="@string/btn_next"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_question"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_affirmation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_question"
-        app:layout_constraintTop_toTopOf="@+id/tv_question" />
+        app:layout_constraintStart_toEndOf="@+id/tv_affirmation"
+        app:layout_constraintTop_toTopOf="@+id/tv_affirmation" />
 
     <Button
         android:id="@+id/btn_share"
