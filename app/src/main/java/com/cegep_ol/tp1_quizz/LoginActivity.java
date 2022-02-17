@@ -3,7 +3,6 @@ package com.cegep_ol.tp1_quizz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,30 +17,11 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvError;
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
-            setContentView(R.layout.activity_login); // it will use .xml from /res/layout
-        }
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            setContentView(R.layout.activity_login); // it will use xml from /res/layout-land
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
-        etUsername = findViewById(R.id.et_email);
-        etPassword = findViewById(R.id.et_password);
-        btnLogin = findViewById(R.id.btn_login);
-        tvError = findViewById(R.id.tv_error);
+        findViewsById();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+
+
         });
     }
 
@@ -71,4 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void findViewsById(){
+        etUsername = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
+        btnLogin = findViewById(R.id.btn_login);
+        tvError = findViewById(R.id.tv_error);
+    }
+
 }

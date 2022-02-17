@@ -13,8 +13,10 @@ import android.widget.Toast;
 public class ConfigurationActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
+
     private EditText etNewUsername;
     private Button btnValidate;
+
     Intent intent;
 
     @Override
@@ -23,28 +25,32 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        etNewUsername = findViewById(R.id.et_newUsername);
-        btnValidate = findViewById(R.id.btn_validate);
+        findViewsById();
 
         btnValidate.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 String newUsername = etNewUsername.getText().toString();
 
-                if (newUsername.trim().length() > 0){
-
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("username", etNewUsername.getText().toString());
-                    editor.apply();
-
-                    intent = new Intent(ConfigurationActivity.this, QuizActivity.class);startActivity(intent);
-                }
+                if (newUsername.trim().length() > 0)
+                    updateUsernameInPrefs(newUsername);
                 else
                     Toast.makeText(ConfigurationActivity.this, R.string.toast_noUsername, Toast.LENGTH_SHORT).show();
-
             }
         });
 
+    }
+    public void updateUsernameInPrefs(String username){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("username", username);
+        editor.apply();
 
+        intent = new Intent(ConfigurationActivity.this, QuizActivity.class);startActivity(intent);
+    }
+
+    public void findViewsById(){
+        etNewUsername = findViewById(R.id.et_newUsername);
+        btnValidate = findViewById(R.id.btn_validate);
     }
 }

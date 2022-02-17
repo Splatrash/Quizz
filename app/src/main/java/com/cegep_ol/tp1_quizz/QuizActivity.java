@@ -40,39 +40,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        prefs = getSharedPreferences("QuizzSave", MODE_PRIVATE);
-        String username = prefs.getString("username", "cegep");
-        Integer highscore = prefs.getInt("highscore", 0);
-
-        //Reset les préférences de la session
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("username", "cegep");
-        editor.apply();
-
         loadQuestions();
         loadAnswers();
 
-        tvUsername = findViewById(R.id.tv_username);
-        btnPrevious = findViewById(R.id.btn_previous);
-        btnNext = findViewById(R.id.btn_next);
-        btnTrue = findViewById(R.id.btn_true);
-        btnFalse = findViewById(R.id.btn_false);
-        btnShare = findViewById(R.id.btn_share);
-        btnConfigure = findViewById(R.id.btn_configure);
+        findViewsById();
+        setOnClickListeners();
 
-        btnPrevious.setOnClickListener(this);
-        btnNext.setOnClickListener(this);
-        btnTrue.setOnClickListener(this);
-        btnFalse.setOnClickListener(this);
-        btnShare.setOnClickListener(this);
-        btnConfigure.setOnClickListener(this);
+        initiatePrefs();
 
-        tvQuestion = findViewById(R.id.tv_question);
-        tvScore = findViewById(R.id.tv_score);
-        tvHighscore = findViewById(R.id.tv_highscore);
-
-        tvHighscore.setText(getString(R.string.tv_highscore) + ": " + highscore);
-        tvUsername.setText(getString(R.string.tv_username) + ": " + username);
         currentQuestion = 0;
         score = 0;
 
@@ -80,8 +55,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v) {
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.btn_previous:
                 previousAffimation();
@@ -98,16 +71,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 nextAffirmation();
                 break;
             case R.id.btn_share:
-                Intent sendScore = new Intent();
-                sendScore.setAction(Intent.ACTION_SEND);
-                sendScore.putExtra(Intent.EXTRA_TEXT, score);
-                sendScore.setType("text/plain");
-                startActivity(sendScore);
+                shareScore();
                 break;
             case R.id.btn_configure:
-                intent = new Intent(QuizActivity.this, ConfigurationActivity.class);
-                startActivity(intent);
-                tvUsername.setText(prefs.getString("username", "cegep"));
+                openConfigurations();
                 break;
         }
     }
@@ -177,4 +144,59 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             tvHighscore.setText(getString(R.string.tv_highscore) + ": " +  score.toString());
         }
     }
+
+    private void findViewsById(){
+
+        btnPrevious = findViewById(R.id.btn_previous);
+        btnNext = findViewById(R.id.btn_next);
+        btnTrue = findViewById(R.id.btn_true);
+        btnFalse = findViewById(R.id.btn_false);
+        btnShare = findViewById(R.id.btn_share);
+        btnConfigure = findViewById(R.id.btn_configure);
+
+        tvUsername = findViewById(R.id.tv_username);
+        tvQuestion = findViewById(R.id.tv_question);
+        tvScore = findViewById(R.id.tv_score);
+        tvHighscore = findViewById(R.id.tv_highscore);
+    }
+    private void setOnClickListeners(){
+        btnPrevious.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
+        btnTrue.setOnClickListener(this);
+        btnFalse.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
+        btnConfigure.setOnClickListener(this);
+    }
+
+    private void initiatePrefs(){
+        prefs = getSharedPreferences("QuizzSave", MODE_PRIVATE);
+        String username = prefs.getString("username", "cegep");
+        Integer highscore = prefs.getInt("highscore", 0);
+
+        //Reset le username de la session précédente
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("username", "cegep");
+        editor.apply();
+
+        tvHighscore.setText(getString(R.string.tv_highscore) + ": " + highscore);
+        tvUsername.setText(getString(R.string.tv_username) + ": " + username);
+
+    }
+
+    private void shareScore(){
+        Intent sendScore = new Intent();
+        sendScore.setAction(Intent.ACTION_SEND);
+        sendScore.putExtra(Intent.EXTRA_TEXT, score);
+        sendScore.setType("text/plain");
+        startActivity(sendScore);
+    }
+
+    private void openConfigurations(){
+        Intent intent;
+
+        intent = new Intent(QuizActivity.this, ConfigurationActivity.class);
+        startActivity(intent);
+        tvUsername.setText(prefs.getString("username", "cegep"));
+    }
+
 }
