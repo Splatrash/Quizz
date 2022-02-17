@@ -3,6 +3,7 @@ package com.cegep_ol.tp1_quizz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,20 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvError;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            setContentView(R.layout.activity_login); // it will use .xml from /res/layout
+        }
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            setContentView(R.layout.activity_login); // it will use xml from /res/layout-land
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

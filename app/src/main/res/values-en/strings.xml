@@ -13,6 +13,8 @@
     <string name="btn_false">False</string>
     <string name="btn_share">Share</string>
     <string name="btn_configure">Configure</string>
+    <string name="tv_highscore">Highscore</string>
+    <string name="tv_username">Name</string>
 
     <string name="ted_changeUsernameHint">Change your username</string>
     <string name="btn_changerNom">Validate</string>

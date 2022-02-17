@@ -17,18 +17,19 @@
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_score"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_question"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="64dp"
         android:shadowColor="#554A4A"
         android:shadowDx="1.5"
         android:shadowDy="1.3"
         android:shadowRadius="1.6"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse condimentum arcu eget erat feugiat dictum. Proin malesuada vel eros quis eleifend. Vestibulum eu justo molestie, dapibus nisl in, sagittis risus."
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse condimentum arcu eget erat feugiat dictum. Proin malesuada vel eros quis eleifend."
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -43,68 +44,71 @@
         android:id="@+id/btn_true"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#2F8F1A"
         android:text="@string/btn_true"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_false" />
+        app:layout_constraintStart_toStartOf="@+id/tv_question"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_false"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="#A80202"
         android:text="@string/btn_false"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_configure"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_question"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
 
     <Button
         android:id="@+id/btn_previous"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:backgroundTint="#817A7A"
         android:text="@string/btn_previous"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_next"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_question"
+        app:layout_constraintEnd_toStartOf="@+id/tv_question"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_next" />
+        app:layout_constraintTop_toTopOf="@+id/tv_question" />
 
     <Button
         android:id="@+id/btn_next"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="48dp"
         android:backgroundTint="#817A7A"
         android:text="@string/btn_next"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_question"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_question"
+        app:layout_constraintTop_toTopOf="@+id/tv_question" />
 
     <Button
         android:id="@+id/btn_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="36dp"
         android:text="@string/btn_share"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_configure"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_configure" />
+        app:layout_constraintTop_toTopOf="@+id/btn_configure"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_configure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#F66301"
         android:text="@string/btn_configure"
         android:textSize="16sp"
@@ -122,13 +126,13 @@
         android:id="@+id/tv_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textColor="#000000"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_question"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_highscore"
@@ -139,6 +143,7 @@
         android:text="HighScore: 0"
         android:textColor="#000000"
         android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_score"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

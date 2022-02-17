@@ -44,7 +44,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         String username = prefs.getString("username", "cegep");
         Integer highscore = prefs.getInt("highscore", 0);
 
-
+        //Reset les préférences de la session
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("username", "cegep");
+        editor.apply();
 
         loadQuestions();
         loadAnswers();
@@ -68,8 +71,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         tvScore = findViewById(R.id.tv_score);
         tvHighscore = findViewById(R.id.tv_highscore);
 
-        tvUsername.setText(username);
-        tvHighscore.setText(highscore.toString());
+        tvHighscore.setText(getString(R.string.tv_highscore) + ": " + highscore);
+        tvUsername.setText(getString(R.string.tv_username) + ": " + username);
         currentQuestion = 0;
         score = 0;
 
@@ -159,6 +162,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT).show();
+        if (score > 0){
+            score--;
+            tvScore.setText(String.valueOf(score));
+        }
     }
 
     private void updateHighScore(){
@@ -167,7 +174,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("highscore", score);
             editor.apply();
-            tvHighscore.setText(score.toString());
+            tvHighscore.setText(getString(R.string.tv_highscore) + ": " +  score.toString());
         }
     }
 }
